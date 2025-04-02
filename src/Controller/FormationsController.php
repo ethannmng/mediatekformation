@@ -32,7 +32,7 @@ class FormationsController extends AbstractController
      * Template path
      * @var String
      */
-    private $templatePath = "pages/formations.html.twig";
+    private const TEMPLATE_PATH = "pages/formations.html.twig";
     
     public function __construct(FormationRepository $formationRepository, CategorieRepository $categorieRepository)
     {
@@ -45,7 +45,7 @@ class FormationsController extends AbstractController
     {
         $formations = $this->formationRepository->findAll();
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'formations' => $formations,
             'categories' => $categories
         ]);
@@ -56,7 +56,7 @@ class FormationsController extends AbstractController
     {
         $formations = $this->formationRepository->findAllOrderBy($champ, $ordre, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'formations' => $formations,
             'categories' => $categories
         ]);
@@ -68,7 +68,7 @@ class FormationsController extends AbstractController
         $valeur = $request->get("recherche");
         $formations = $this->formationRepository->findByContainValue($champ, $valeur, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'formations' => $formations,
             'categories' => $categories,
             'valeur' => $valeur,
@@ -80,7 +80,7 @@ class FormationsController extends AbstractController
     public function showOne($id): Response
     {
         $formation = $this->formationRepository->find($id);
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'formation' => $formation
         ]);
     }

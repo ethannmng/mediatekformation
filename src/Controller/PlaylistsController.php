@@ -39,7 +39,7 @@ class PlaylistsController extends AbstractController
      * Template path
      * @var String
      */
-    private $templatePath = "pages/playlists.html.twig";
+    private const TEMPLATE_PATH = "pages/playlists.html.twig";
     
     public function __construct(
         PlaylistRepository $playlistRepository,
@@ -61,7 +61,7 @@ class PlaylistsController extends AbstractController
         $playlists = $this->playlistRepository->findAllOrderByName('ASC');
         $categories = $this->categorieRepository->findAll();
                 
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'playlists' => $playlists,
             'categories' => $categories
         ]);
@@ -77,7 +77,7 @@ class PlaylistsController extends AbstractController
         }
 
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'playlists' => $playlists,
             'categories' => $categories
         ]);
@@ -89,7 +89,7 @@ class PlaylistsController extends AbstractController
         $valeur = $request->get("recherche");
         $playlists = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'playlists' => $playlists,
             'categories' => $categories,
             'valeur' => $valeur,
@@ -103,7 +103,7 @@ class PlaylistsController extends AbstractController
         $playlist = $this->playlistRepository->find($id);
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
-        return $this->render($this->templatePath, [
+        return $this->render(self::TEMPLATE_PATH, [
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
             'playlistformations' => $playlistFormations
