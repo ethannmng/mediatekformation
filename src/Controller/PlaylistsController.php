@@ -72,10 +72,23 @@ class PlaylistsController extends AbstractController
     {
         if ($champ === "name") {
             $playlists = $this->playlistRepository->findAllOrderByName($ordre);
+        } elseif ($champ === "formations") {
+            $playlists = $this->playlistRepository->findAllOrderByFormationCount($ordre);
         } else {
             $playlists = $this->playlistRepository->findAll();
         }
 
+        $categories = $this->categorieRepository->findAll();
+        return $this->render(self::TEMPLATE_PATH, [
+            'playlists' => $playlists,
+            'categories' => $categories
+        ]);
+    }
+    
+    #[Route('/playlists/tri/formations/{ordre}', name: 'playlists.sortFormationCount')]
+    public function sortFormationCount(string $ordre): Response
+    {
+        $playlists = $this->playlistRepository->findAllOrderByFormationCount($ordre);
         $categories = $this->categorieRepository->findAll();
         return $this->render(self::TEMPLATE_PATH, [
             'playlists' => $playlists,
@@ -103,10 +116,11 @@ class PlaylistsController extends AbstractController
         $playlist = $this->playlistRepository->find($id);
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
-        return $this->render(self::TEMPLATE_PATH, [
+        return $this->render("pages/playlist.html.twig", [
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
-            'playlistformations' => $playlistFormations
+            'playlistformations' => $playlistFormations,
+            'playlistformationscount' => $playlist->getFormationCount()
         ]);
     }
     
