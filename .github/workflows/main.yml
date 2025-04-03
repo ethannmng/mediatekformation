@@ -15,3 +15,5 @@ jobs:
           server-dir: /
           username: git_deploy@mediatekformation.ehnlabs.fr
           password: ${{ secrets.ftp_password }}
+          exclude: |
+            .env
