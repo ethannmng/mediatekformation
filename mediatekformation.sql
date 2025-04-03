@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 13 mai 2024 à 15:26
--- Version du serveur : 8.2.0
--- Version de PHP : 8.2.13
+-- Généré le : jeu. 03 avr. 2025 à 09:28
+-- Version du serveur : 9.1.0
+-- Version de PHP : 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `mediatekformation`
 --
-CREATE DATABASE IF NOT EXISTS `mediatekformation` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `mediatekformation`;
 
 -- --------------------------------------------------------
 
@@ -32,7 +30,7 @@ USE `mediatekformation`;
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -59,7 +57,7 @@ INSERT INTO `categorie` (`id`, `name`) VALUES
 
 DROP TABLE IF EXISTS `doctrine_migration_versions`;
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `version` varchar(191) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
@@ -83,12 +81,12 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `playlist_id` int DEFAULT NULL,
   `published_at` datetime DEFAULT NULL,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `video_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `video_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_404021BF6BBD148` (`playlist_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `formation`
@@ -642,9 +640,9 @@ INSERT INTO `formation_categorie` (`formation_id`, `categorie_id`) VALUES
 DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `headers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue_name` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
@@ -663,8 +661,8 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
 DROP TABLE IF EXISTS `playlist`;
 CREATE TABLE IF NOT EXISTS `playlist` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
