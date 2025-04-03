@@ -6,6 +6,7 @@ use App\Repository\FormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
@@ -22,18 +23,23 @@ class Formation
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotNull(message: "ERREUR: la date de publication est requise !")]
+    #[Assert\LessThanOrEqual('today', message: "ERREUR: la date ne peut pas être supérieur à la date d'aujourd'hui !")]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $publishedAt = null;
 
+    #[Assert\NotBlank(message: 'ERREUR: le titre est obligatoire !')]
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
-
+    
+    #[Assert\NotBlank(message : 'ERREUR: la vidéo est obligatoire !')]
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $videoId = null;
 
+    #[Assert\NotNull(message: "ERREUR: le choix d'une playliste est obligatoire !")]
     #[ORM\ManyToOne(inversedBy: 'formations')]
     private ?Playlist $playlist = null;
 
@@ -143,6 +149,7 @@ class Formation
     {
         if (!$this->categories->contains($category)) {
             $this->categories->add($category);
+            $category->addFormation($this);
         }
 
         return $this;
@@ -151,6 +158,7 @@ class Formation
     public function removeCategory(Categorie $category): static
     {
         $this->categories->removeElement($category);
+        $category->removeFormation($this);
 
         return $this;
     }

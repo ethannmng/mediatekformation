@@ -1,0 +1,40 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-info mb-3">Détails</h1>
+ 
+        <div class="d-flex gap-2 mb-3">
+            <a href="{{ path('admin.formations.edit', {'id': formation.id}) }}" class="btn btn-info btn-sm" role="button" title="Modifier">Modifier</a>
+            {{ include('admin/formation/delete.html.twig', { formation: formation }) }}
+        </div>
+        <div class="col">
+            {% if formation.videoid %}
+                <div style="width: 560px; height: 315px; float: none; clear: both; margin: 2px auto;">
+                  <embed
+                    src="https://www.youtube.com/embed/{{ formation.videoid }}" 
+                    wmode="transparent"
+                    type="video/mp4"
+                    width="100%" height="100%"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    title="YouTube video player"
+                  >
+                </div>
+            {% endif %}
+        </div>
+        <div class="col">
+            {{ formation.publishedatstring }}
+            <h4 class="text-info mt-5">{{ formation.title }}</h4>
+            <strong>playlist : </strong>{{ formation.playlist.name }}<br />
+            <strong>catégories : </strong>
+                {% for categorie in formation.categories %}
+                    {{ categorie.name }}&nbsp;
+                {% endfor %}
+            <br /><br />
+            <strong>description :</strong><br />
+                {{ formation.description|nl2br }}
+        </div>
+        <a href="{{ path('admin.formations') }}" class="btn btn-info btn-sm" role="button" title="Retour à la liste des formations">Retour à la liste</a>
+    </div>
+{% endblock %}

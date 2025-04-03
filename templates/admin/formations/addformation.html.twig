@@ -1,0 +1,21 @@
+{# 
+    Template addformation.html ~ Création d'une formation via back-office
+    @author Ethan MÉNAGÉ [ethanmng.pro@gmail.com]
+#}
+{% extends 'admin/baseback.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-primary text-center mb-4">Ajouter une Formation</h1>
+
+        <div class="card shadow-sm border-0 rounded-4 p-4 mb-4 bg-light">
+            {{ include('admin/formations/_formulaire.html.twig', { 'button_label': 'Ajouter une formation' }) }}
+        </div>
+
+        <div class="text-center">
+            <a href="{{ path('admin.formations') }}" class="btn btn-outline-primary btn-lg" role="button">
+                Retour à la liste des formations
+            </a>
+        </div>
+    </div>
+{% endblock %}

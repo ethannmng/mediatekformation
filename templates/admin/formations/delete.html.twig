@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('admin.formations.delete', {'id': formation.id}) }}" class="d-inline">
+    
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formation.id) }}">
+    <button class="btn btn-danger btn-sm" title="Supprimer la formation">Supprimer</button>
+    
+</form>
